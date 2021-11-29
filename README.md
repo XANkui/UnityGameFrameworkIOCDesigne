@@ -30,28 +30,46 @@
 ### 分层功能的补充说明
 
 #### 表现层：
+
 •可以获取 System
+
 •可以获取 Model
+
 •可以发送 Command
+
 •可以监听 Event
 
 #### 系统层：
+
 •可以获取 System
+
 •可以获取 Model
+
 •可以监听、发送 Event
+
 •可以获取 Utility
+
 
 #### 数据层：
+
 •可以获取 Utility
+
 •可以发送 Event
 
+
 #### 工具层：
+
 •啥都干不了，可以集成第三方库，或者封装 API。
 
 除了四个层级，还有一个核心概念就是 Command。
 #### Command：
+
 •可以获取 System
+
 •可以获取 Model
+
 •可以发送 Event
+
 •可以获取 Utility
+
 •可以发送 Command
