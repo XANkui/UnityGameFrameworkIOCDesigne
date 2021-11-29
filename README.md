@@ -1,7 +1,7 @@
 # UnityGameFrameworkIOCDesigne
 ## Unity IOC 简单游戏框架 
 
-### 架构分为四个层级:
+### 一、架构分为四个层级:
 
 •表现层：IController 接口，负责接收输入和当状态变化时更新表现，一般情况下 MonoBehaviour 均为表现层对象。
 
@@ -11,7 +11,7 @@
 
 •工具层：IUtility 接口，负责提供基础设施，比如存储方法、序列化方法、网络链接方法、蓝牙方法、SDK、框架集成等。
 
-### 使用规则：
+### 二、使用规则：
 
 •IController 更改 ISystem、IModel 的状态必须用 Command。
 
@@ -27,7 +27,7 @@
 
 •上层向下层通信用方法调用，IController 的交互逻辑为特使情况，只能用 Command。
 
-### 分层功能的补充说明
+### 三、分层功能的补充说明
 
 #### 1、表现层：
 
