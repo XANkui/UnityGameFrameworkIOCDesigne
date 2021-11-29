@@ -1,42 +1,28 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace GameFrameworkDesign.Example
-{ 
+namespace GameFrameworkDesign.Example { 
 
-	public class GameStartPanel : MonoBehaviour,IController
-	{
+	public class GamePanel : MonoBehaviour, IController
+    {
+        private ICountDownSystem mCountDownSystem;
         private IGameModel mGameModel;
 
-        void Start()
+        private void Awake()
         {
-            transform.Find("BtnGameStart").GetComponent<Button>()
-                .onClick.AddListener(() =>
-                {
-                    gameObject.SetActive(false);
-
-                    this.SendCommand<StartGameCommand>();
-                });
-
-            transform.Find("BtnBuyLife").GetComponent<Button>()
-                .onClick.AddListener(() =>
-                {
-
-                    this.SendCommand<BuyLifeCommand>();
-                });
+            mCountDownSystem = this.GetSystem<ICountDownSystem>();
 
             mGameModel = this.GetModel<IGameModel>();
 
             mGameModel.Gold.RegisterOnValueChanged(OnGoldValueChanged);
             mGameModel.Life.RegisterOnValueChanged(OnLifeValueChanged);
+            mGameModel.Score.RegisterOnValueChanged(OnScoreValueChanged);
 
             // 第一次需要调用一下
             OnGoldValueChanged(mGameModel.Gold.Value);
             OnLifeValueChanged(mGameModel.Life.Value);
-
-            transform.Find("BestScoreText").GetComponent<Text>().text = "最高分:" + mGameModel.BestScore.Value;
+            OnScoreValueChanged(mGameModel.Score.Value);
         }
 
         private void OnLifeValueChanged(int life)
@@ -46,27 +32,36 @@ namespace GameFrameworkDesign.Example
 
         private void OnGoldValueChanged(int gold)
         {
-            if (gold > 0)
-            {
-                transform.Find("BtnBuyLife").gameObject.SetActive(true);
-            }
-            else
-            {
-                transform.Find("BtnBuyLife").gameObject.SetActive(false);
-            }
-
             transform.Find("GoldText").GetComponent<Text>().text = "金币：" + gold;
         }
 
+        private void OnScoreValueChanged(int score)
+        {
+            transform.Find("ScoreText").GetComponent<Text>().text = "分数:" + score;
+        }
+
+        private void Update()
+        {
+            // 每 20 帧 更新一次
+            if (Time.frameCount % 20 == 0)
+            {
+                transform.Find("CountDownText").GetComponent<Text>().text =
+                    mCountDownSystem.CurrentRemainSeconds + "s";
+
+                mCountDownSystem.Update();
+            }
+        }
 
         private void OnDestroy()
         {
             mGameModel.Gold.UnRegisterOnValueChanged(OnGoldValueChanged);
             mGameModel.Life.UnRegisterOnValueChanged(OnLifeValueChanged);
+            mGameModel.Score.UnRegisterOnValueChanged(OnScoreValueChanged);
             mGameModel = null;
+            mCountDownSystem = null;
         }
 
-        IArchitecture IBelongToArchitecture.GetArchitecture()
+        public IArchitecture GetArchitecture()
         {
             return ClickClickClickArchitecture.Interface;
         }

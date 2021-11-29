@@ -6,12 +6,12 @@ namespace GameFrameworkDesign.Example {
 
 	public class ArchievementSystem : AbstractSystem,IArchievementSystem,ICanGetModel,ICanGetUtility
 	{
-        public override void OnInit()
+        protected override void OnInit()
         {
             Debug.Log("ArchievementSystem  Init ");
             var gameModel = this.GetModel<IGameModel>();
-            var oldCountValue = gameModel.Count.Value;
-            gameModel.Count.OnValueChange += newCountValue => {
+            var oldCountValue = gameModel.KillCount.Value;
+            gameModel.KillCount.RegisterOnValueChanged( newCountValue => {
                 Debug.Log("newCountValue  " + newCountValue);
                 if (oldCountValue < 5 && newCountValue >= 5)
                 {
@@ -24,7 +24,7 @@ namespace GameFrameworkDesign.Example {
                 }
 
                 oldCountValue = newCountValue;
-            };
+            });
         }
     }
 }

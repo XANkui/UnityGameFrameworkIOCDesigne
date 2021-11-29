@@ -8,10 +8,17 @@ namespace GameFrameworkDesign.Example {
 	{
         public override void OnExecute()
         {
-            IGameModel gameModel = ClickClickClickArchitecture.Get<IGameModel>();
-            gameModel.Count.Value++;
+            IGameModel gameModel = this.GetModel<IGameModel>();
+            gameModel.KillCount.Value++;
 
-            if (gameModel.Count.Value >= 10)
+            if (UnityEngine.Random.Range(0, 10) < 3)
+            {
+                gameModel.Gold.Value += UnityEngine.Random.Range(1, 3);
+            }
+
+            this.SendEvent<OnKillEnemyEvent>();
+            Debug.Log("gameModel.KillCount.Value  " + gameModel.KillCount.Value);
+            if (gameModel.KillCount.Value == 10)
             {
                 this.SendEvent<OnGamePass>();
             }

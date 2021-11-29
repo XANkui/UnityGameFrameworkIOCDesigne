@@ -30,13 +30,13 @@ namespace GameFrameworkDesign {
 		/// </summary>
 		/// <typeparam name="T"></typeparam>
 		/// <returns></returns>
-		T GetSystem<T>() where T : class;
+		T GetSystem<T>() where T : class,ISystem;
 		/// <summary>
 		/// 获取数据模型 Model
 		/// </summary>
 		/// <typeparam name="T"></typeparam>
 		/// <returns></returns>
-		T GetModel<T>() where T : class;	
+		T GetModel<T>() where T : class,IModel;	
 		/// <summary>
 		/// 获取工具 Utility
 		/// </summary>
@@ -58,22 +58,22 @@ namespace GameFrameworkDesign {
 		/// <summary>
 		/// 发送事件
 		/// </summary>
-		void SendEvent<T>() where T : new(); // +
+		void SendEvent<T>() where T : new();
 
 		/// <summary>
 		/// 发送事件
 		/// </summary>
-		void SendEvent<T>(T e); // +
+		void SendEvent<T>(T e); 
 
 		/// <summary>
 		/// 注册事件
 		/// </summary>
-		IUnRegister RegisterEvent<T>(Action<T> onEvent); // +
+		IUnRegister RegisterEvent<T>(Action<T> onEvent); 
 
 		/// <summary>
 		/// 注销事件
 		/// </summary>
-		void UnRegisterEvent<T>(Action<T> onEvent); // +
+		void UnRegisterEvent<T>(Action<T> onEvent); 
 	}
 	public abstract class Architecture<T> : IArchitecture where T: Architecture<T>,new()
 	{
@@ -99,6 +99,9 @@ namespace GameFrameworkDesign {
 		private List<IModel> mModels = new List<IModel>();  // 缓存列表 为初始化使用
 		private List<ISystem> mSystems = new List<ISystem>();   // 缓存列表 为初始化使用
 
+		/// <summary>
+		/// 注册补丁
+		/// </summary>
 		public static Action<T> OnRegisterPatch = architecture => { };
 
 		/// <summary>
@@ -143,16 +146,6 @@ namespace GameFrameworkDesign {
 		// IOC 功能
 		private IOCContainer mContainer = new IOCContainer();
 
-		public static T1 Get<T1>() where T1 :class{
-			MakeSureArchitecture();
-			return mArchitecture.mContainer.Get<T1>();
-		}
-
-		public static void Register<T1>(T1 instance) {
-			MakeSureArchitecture();
-			mArchitecture.mContainer.Register<T1>(instance);
-		}
-
 		public void RegisterSystem<T1>(T1 system) where T1 : ISystem
 		{
 			system.SetArchitecture(this);
@@ -189,11 +182,11 @@ namespace GameFrameworkDesign {
 			mContainer.Register<T1>(utility);
 		}
 
-		public T1 GetSystem<T1>() where T1 : class
+		public T1 GetSystem<T1>() where T1 : class,ISystem
 		{
 			return mContainer.Get<T1>();
 		}
-		public T1 GetModel<T1>() where T1 : class
+		public T1 GetModel<T1>() where T1 : class,IModel
 		{
 			return mContainer.Get<T1>();
 		}

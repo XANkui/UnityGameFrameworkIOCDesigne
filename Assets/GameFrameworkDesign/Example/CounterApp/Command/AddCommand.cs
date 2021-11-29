@@ -11,7 +11,7 @@ namespace CounterApp {
 
         public override void OnExecute()
         {
-            CounterAppArchitecture.Get<ICounterModel>().Count.Value++;
+            this.GetModel<ICounterModel>().Count.Value++;
         }
     }
 }

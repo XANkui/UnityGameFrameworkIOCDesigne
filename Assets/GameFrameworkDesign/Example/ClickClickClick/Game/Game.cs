@@ -5,30 +5,39 @@ using UnityEngine;
 namespace GameFrameworkDesign.Example
 { 
 
-	public class Game : MonoBehaviour,IController
-	{
-		// Start is called before the first frame update
-		void Start()
-		{
-			this.RegisterEvent<OnGameStart>(OnGameStartEvent);
-			
-		}
+	public class Game : MonoBehaviour, IController
+    {
+        void Start()
+        {
+            this.RegisterEvent<OnGameStart>(OnGameStart);
 
-		private void OnGameStartEvent(OnGameStart e) {
-			transform.Find("Enemys").gameObject.SetActive(true);
-		}
+            this.RegisterEvent<OnCountDownEndEvent>(e => { transform.Find("Enemies").gameObject.SetActive(false); })
+                .UnRegisterWhenGameObjectDestroyed(gameObject);
 
-        
+            this.RegisterEvent<OnGamePass>(e => { transform.Find("Enemies").gameObject.SetActive(false); })
+                .UnRegisterWhenGameObjectDestroyed(gameObject);
+        }
+
+        private void OnGameStart(OnGameStart e)
+        {
+            var enemyRoot = transform.Find("Enemies");
+
+            enemyRoot.gameObject.SetActive(true);
+
+            foreach (Transform childTrans in enemyRoot)
+            {
+                childTrans.gameObject.SetActive(true);
+            }
+        }
 
         private void OnDestroy()
         {
-			this.UnRegisterEvent<OnGameStart>(OnGameStartEvent);
-			
-		}
+            this.UnRegisterEvent<OnGameStart>(OnGameStart);
+        }
 
         public IArchitecture GetArchitecture()
         {
-			return ClickClickClickArchitecture.Interface;
+            return ClickClickClickArchitecture.Interface;
         }
     }
 }

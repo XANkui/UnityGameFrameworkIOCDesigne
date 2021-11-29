@@ -2,14 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace GameFrameworkDesign.Example
-{ 
-	public class Enemy : MonoBehaviour,IController
-	{
+namespace GameFrameworkDesign.Example { 
+
+	public class ErrorArea : MonoBehaviour, IController
+    {
         private void OnMouseDown()
         {
-            GetArchitecture().SendCommand<ClickEnemyCommand>();
-            gameObject.SetActive(false);
+            this.SendCommand<MissCommand>();
         }
 
         public IArchitecture GetArchitecture()
