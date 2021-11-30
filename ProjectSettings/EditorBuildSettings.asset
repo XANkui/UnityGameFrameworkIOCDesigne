@@ -4,5 +4,17 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/GameFrameworkDesign/Example/ShootGame/Scenes/GameStart.unity
+    guid: a916dd5a945e6a14288d1483789bd33f
+  - enabled: 1
+    path: Assets/GameFrameworkDesign/Example/ShootGame/Scenes/ShootGame.unity
+    guid: d0479970ab61a854595d4641d9c2d3b9
+  - enabled: 1
+    path: Assets/GameFrameworkDesign/Example/ShootGame/Scenes/GamePass.unity
+    guid: 723e5f1de20c86842b2525baa7ace400
+  - enabled: 1
+    path: Assets/GameFrameworkDesign/Example/ShootGame/Scenes/GameOver.unity
+    guid: 04bd1cf267d685a4cbd5999be78b4e65
   m_configObjects: {}

@@ -35,6 +35,14 @@ namespace GameFrameworkDesign.Example.ShootGame {
         private void FixedUpdate()
         {
             var horizontalMovement = Input.GetAxis("Horizontal");
+            if (horizontalMovement>0&&transform.localScale.x<0
+                || horizontalMovement < 0 && transform.localScale.x > 0)
+            {
+                var localScale = transform.localScale;
+                localScale.x *= -1 ;
+                transform.localScale = localScale;
+            }
+
             mRigidbody2D.velocity = new Vector2(horizontalMovement * 5,mRigidbody2D.velocity.y);
 
             bool grounded = mGroundCheck.Triggered;
@@ -46,5 +54,7 @@ namespace GameFrameworkDesign.Example.ShootGame {
 
             mJumpPress = false;
         }
+
+        
     }
 }
