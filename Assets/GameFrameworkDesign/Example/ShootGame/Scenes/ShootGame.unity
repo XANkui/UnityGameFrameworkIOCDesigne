@@ -974,6 +974,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5129175837570887260, guid: 8c01ee8768d140344bad07821bc7f64c,
+        type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7359567391245289002, guid: 8c01ee8768d140344bad07821bc7f64c,
+        type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8006779580706481904, guid: 8c01ee8768d140344bad07821bc7f64c,
+        type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8807891110863606268, guid: 8c01ee8768d140344bad07821bc7f64c,
         type: 3}
       propertyPath: m_Name
