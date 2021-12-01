@@ -9,7 +9,8 @@ namespace GameFrameworkDesign {
 	/// 服务 Model 自动添加相关属性事件
 	/// </summary>
 	/// <typeparam name="T"></typeparam>
-	public class BindableProperty<T> where T:IEquatable<T>
+	// public class BindableProperty<T> where T:IEquatable<T>
+	public class BindableProperty<T> // 为了可使用 enum
 	{
         private T mValue;
 
@@ -18,11 +19,17 @@ namespace GameFrameworkDesign {
             get => mValue;
             set
             {
-                if (!mValue.Equals(value))
-                {
-                    mValue = value;
-                    mOnValueChanged?.Invoke(value);
-                }
+                //if (!mValue.Equals(value))
+                //{
+                //    mValue = value;
+                //    mOnValueChanged?.Invoke(value);
+                //}
+
+                
+                // 为了可使用 enum
+                mValue = value;
+                mOnValueChanged?.Invoke(value);
+                
             }
         }
 
@@ -44,7 +51,8 @@ namespace GameFrameworkDesign {
         }
     }
 
-    public class BindablePropertyUnRegister<T> : IUnRegister where T : IEquatable<T> 
+    //public class BindablePropertyUnRegister<T> : IUnRegister where T : IEquatable<T> 
+    public class BindablePropertyUnRegister<T> : IUnRegister // 为了可使用 enum
     {
         public BindableProperty<T> BindableProperty { get; set; }
 

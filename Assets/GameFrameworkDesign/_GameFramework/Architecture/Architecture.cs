@@ -56,6 +56,14 @@ namespace GameFrameworkDesign {
 		void SendCommand<T>(T command) where T : ICommand;
 
 		/// <summary>
+		/// 发送查询命令 query
+		/// </summary>
+		/// <typeparam name="T"></typeparam>
+		/// <param name="query"></param>
+		/// <returns></returns>
+		T SendQuery<T>(IQuery<T> query);
+
+		/// <summary>
 		/// 发送事件
 		/// </summary>
 		void SendEvent<T>() where T : new();
@@ -210,6 +218,12 @@ namespace GameFrameworkDesign {
 			command.Execute();
 		}
 
+		public T1 SendQuery<T1>(IQuery<T1> query)
+		{
+			query.SetArchitecture(this);
+			return query.Do();
+		}
+
 		private ITypeEventSystem mTypeEventSystem = new TypeEventSystem(); 
 
 		public void SendEvent<T1>() where T1 : new() 
@@ -232,6 +246,6 @@ namespace GameFrameworkDesign {
 			mTypeEventSystem.UnRegister<T1>(onEvent);
 		}
 
-		
-	}
+        
+    }
 }

@@ -14,8 +14,12 @@ namespace GameFrameworkDesign.Example.ShootGame {
 
 		private Text mHPText;
 		private Text mKillCountText;
-		private Text mBulletCountText;
+		private Text mBulletCountInGunText;
+		private Text mBulletCountOutGunText;
+		private Text mGunNameText;
+		private Text mGunStateText;
 		private int TOTAL_HP;
+		private int MAX_BULLET_COUNT;
 
 		private void Awake()
         {
@@ -25,7 +29,10 @@ namespace GameFrameworkDesign.Example.ShootGame {
 			mGunInfo = mGunSystem.CurrentGun;
 			mHPText = transform.Find("Canvas/HPText").GetComponent<Text>();
 			mKillCountText = transform.Find("Canvas/KillCountText").GetComponent<Text>();
-			mBulletCountText = transform.Find("Canvas/BulletCountText").GetComponent<Text>();
+			mBulletCountInGunText = transform.Find("Canvas/BulletCountInGunText").GetComponent<Text>();
+			mBulletCountOutGunText = transform.Find("Canvas/BulletCountOutGunText").GetComponent<Text>();
+			mGunNameText = transform.Find("Canvas/GunNameText").GetComponent<Text>();
+			mGunStateText = transform.Find("Canvas/GunStateText").GetComponent<Text>();
 			
 		}
 
@@ -33,13 +40,20 @@ namespace GameFrameworkDesign.Example.ShootGame {
         void Start()
 		{
 			TOTAL_HP = mPlayerModel.HP.Value;
+			MAX_BULLET_COUNT = this.SendQuery(new MaxBulletCountQuery(mGunInfo.GunName.Value));
 			mPlayerModel.HP.RegisterOnValueChanged(UpdateHPText);
 			mStateSystem.KillCount.RegisterOnValueChanged(UpdateKillCountText);
-			mGunInfo.BulletCount.RegisterOnValueChanged(UpdateBulletCountText);
+			mGunInfo.BulletCountInGun.RegisterOnValueChanged(UpdateBulletCountInGunText);
+			mGunInfo.BulletCountOutGun.RegisterOnValueChanged(UpdateBulletCountOutGunText);
+			mGunInfo.GunState.RegisterOnValueChanged(UpdateGunStateText);
+			mGunInfo.GunName.RegisterOnValueChanged(UpdateGunNameText);
 
 			UpdateHPText(mPlayerModel.HP.Value);
 			UpdateKillCountText(mStateSystem.KillCount.Value);
-			UpdateBulletCountText(mGunInfo.BulletCount.Value);
+			UpdateBulletCountInGunText(mGunInfo.BulletCountInGun.Value);
+			UpdateBulletCountOutGunText(mGunInfo.BulletCountOutGun.Value);
+			UpdateGunNameText(mGunInfo.GunName.Value);
+			UpdateGunStateText(mGunInfo.GunState.Value);
 		}
 
 		void UpdateHPText(int hp) {
@@ -49,9 +63,24 @@ namespace GameFrameworkDesign.Example.ShootGame {
 		{
 			mKillCountText.text = "击杀：" + killCount;
 		}
-		void UpdateBulletCountText(int BulletCount)
+		void UpdateBulletCountInGunText(int BulletCount)
 		{
-			mBulletCountText.text = "子弹：" + BulletCount;
+			mBulletCountInGunText.text = "枪内子弹：" + BulletCount+"/"+ MAX_BULLET_COUNT;
+		}
+
+		void UpdateBulletCountOutGunText(int BulletCount)
+		{
+			mBulletCountOutGunText.text = "枪外子弹：" + BulletCount;
+		}
+
+		void UpdateGunStateText(GunState gunState)
+		{
+			mGunStateText.text = "枪状态：" + gunState;
+		}
+
+		void UpdateGunNameText(string name)
+		{
+			mGunNameText.text = "枪名：" + name;
 		}
 
 		private void OnDestroy()

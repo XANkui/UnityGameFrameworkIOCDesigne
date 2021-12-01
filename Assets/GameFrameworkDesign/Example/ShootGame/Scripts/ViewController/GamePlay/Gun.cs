@@ -18,7 +18,7 @@ namespace GameFrameworkDesign.Example.ShootGame {
         }
 
         public void Shoot() {
-            if (mGunInfo.BulletCount.Value>0)
+            if (mGunInfo.BulletCountInGun.Value>0 && mGunSystem.CurrentGun.GunState.Value == GunState.Idle)
             {
                 var bullet = Instantiate(mBullet, mBullet.transform.position, mBullet.transform.rotation);
                 bullet.transform.localScale = mBullet.transform.lossyScale;

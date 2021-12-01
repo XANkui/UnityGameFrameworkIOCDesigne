@@ -8,9 +8,12 @@ namespace GameFrameworkDesign.Example.ShootGame {
 	{
         protected override void Init()
         {
+            this.RegisterSystem<ITimeSystem>(new TimeSystem());
             this.RegisterSystem<IStateSystem>(new StateSystem());
             this.RegisterSystem<IGunSystem>(new GunSystem());
+
             this.RegisterModel<IPlayerModel>(new PlayerModel());
+            this.RegisterModel<IGunConfigModel>(new GunConfigModel());
         }
     }
 }
