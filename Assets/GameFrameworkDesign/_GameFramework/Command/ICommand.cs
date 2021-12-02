@@ -3,9 +3,10 @@ namespace GameFrameworkDesign {
 
     /// <summary>
     /// ICommand 不能有状态
-    ///   ICanGetSystem, ICanGetModel, ICanGetUtility，ICanSendEvent,ICanSendCommand，使用规则，使得继承类可以获取 System，Model 和 Utility，SendEvent,SendCommand
+    ///   ICanGetSystem, ICanGetModel, ICanGetUtility，ICanSendEvent,ICanSendCommand，ICanSendQuery 
+    ///   使用规则，使得继承类可以获取 System，Model 和 Utility，SendEvent,SendCommand,SendQuery
     /// </summary>
-    public interface ICommand :IBelongToArchitecture,ICanSetArchitecture, ICanGetSystem, ICanGetModel, ICanGetUtility, ICanSendEvent, ICanSendCommand
+    public interface ICommand :IBelongToArchitecture,ICanSetArchitecture, ICanGetSystem, ICanGetModel, ICanGetUtility, ICanSendEvent, ICanSendCommand,ICanSendQuery
     {
 		void Execute();
 	}

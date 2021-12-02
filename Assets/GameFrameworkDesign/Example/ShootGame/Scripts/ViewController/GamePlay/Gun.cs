@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,12 +10,13 @@ namespace GameFrameworkDesign.Example.ShootGame {
         private Bullet mBullet;
         private IGunSystem mGunSystem;
         private GunInfo mGunInfo;
-
+        private int mMaxBulletCount;
         private void Awake()
         {
             mBullet = transform.Find("Bullet").GetComponent<Bullet>();
             mGunSystem = this.GetSystem<IGunSystem>();
             mGunInfo = mGunSystem.CurrentGun;
+            mMaxBulletCount = this.SendQuery(new MaxBulletCountQuery(mGunInfo.GunName.Value)) ;
         }
 
         public void Shoot() {
@@ -29,6 +31,14 @@ namespace GameFrameworkDesign.Example.ShootGame {
             
         }
 
+        internal void Reload()
+        {
+            if (mGunSystem.CurrentGun.GunState.Value == GunState.Idle
+                && mMaxBulletCount> mGunSystem.CurrentGun.BulletCountInGun.Value
+                && mGunSystem.CurrentGun.BulletCountOutGun.Value>0) {
+                this.SendCommand<ReloadBulletCommand>();
+            }
+        }
 
         private void OnDestroy()
         {

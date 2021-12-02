@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace GameFrameworkDesign.Example.ShootGame { 
 
@@ -15,7 +16,14 @@ namespace GameFrameworkDesign.Example.ShootGame {
 
         public override void OnExecute()
         {
-            this.GetModel<IPlayerModel>().HP.Value -= mHurtCOunt;
+            var playerModel = this.GetModel<IPlayerModel>();
+
+            playerModel.HP.Value -= mHurtCOunt;
+
+            if (playerModel.HP.Value <= 0)
+            {
+                SceneManager.LoadScene("GameOver");
+            }
         }
     }
 }

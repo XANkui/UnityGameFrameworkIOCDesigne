@@ -11,7 +11,7 @@ namespace GameFrameworkDesign.Example.ShootGame {
         {
             if (collision.gameObject.tag.Equals("Player"))
             {
-                this.SendCommand(new HurtPlayerCommand(2));
+                this.SendCommand(new HurtPlayerCommand(1));
 
             }
         }

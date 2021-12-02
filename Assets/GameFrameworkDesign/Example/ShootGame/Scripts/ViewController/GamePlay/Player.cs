@@ -30,6 +30,11 @@ namespace GameFrameworkDesign.Example.ShootGame {
             {
                 mGun.Shoot();
             }
+
+            if (Input.GetKeyDown(KeyCode.R)) 
+            {
+                mGun.Reload();
+            }
         }
 
         private void FixedUpdate()
