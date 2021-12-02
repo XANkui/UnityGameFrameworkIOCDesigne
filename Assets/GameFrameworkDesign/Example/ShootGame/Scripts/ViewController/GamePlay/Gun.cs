@@ -17,6 +17,10 @@ namespace GameFrameworkDesign.Example.ShootGame {
             mGunSystem = this.GetSystem<IGunSystem>();
             mGunInfo = mGunSystem.CurrentGun;
             mMaxBulletCount = this.SendQuery(new MaxBulletCountQuery(mGunInfo.GunName.Value)) ;
+
+            this.RegisterEvent<OnCurrentGunChangedEvent>((e)=> {
+                mMaxBulletCount = this.SendQuery(new MaxBulletCountQuery(e.GunName));
+            }).UnRegisterWhenGameObjectDestroyed(gameObject);
         }
 
         public void Shoot() {

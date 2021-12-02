@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace GameFrameworkDesign.Example.ShootGame { 
 
-	public class Player : MonoBehaviour
+	public class Player : MonoBehaviour,IController
 	{
         private Rigidbody2D mRigidbody2D;
         private bool mJumpPress = false;
@@ -35,6 +35,7 @@ namespace GameFrameworkDesign.Example.ShootGame {
             {
                 mGun.Reload();
             }
+
         }
 
         private void FixedUpdate()
@@ -60,6 +61,9 @@ namespace GameFrameworkDesign.Example.ShootGame {
             mJumpPress = false;
         }
 
-        
+        public IArchitecture GetArchitecture()
+        {
+            return ShootGame.Interface;
+        }
     }
 }

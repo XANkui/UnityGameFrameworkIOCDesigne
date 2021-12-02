@@ -33,7 +33,9 @@ namespace GameFrameworkDesign.Example.ShootGame {
 			mBulletCountOutGunText = transform.Find("Canvas/BulletCountOutGunText").GetComponent<Text>();
 			mGunNameText = transform.Find("Canvas/GunNameText").GetComponent<Text>();
 			mGunStateText = transform.Find("Canvas/GunStateText").GetComponent<Text>();
+
 			
+
 		}
 
         // Start is called before the first frame update
@@ -41,6 +43,11 @@ namespace GameFrameworkDesign.Example.ShootGame {
 		{
 			TOTAL_HP = mPlayerModel.HP.Value;
 			MAX_BULLET_COUNT = this.SendQuery(new MaxBulletCountQuery(mGunInfo.GunName.Value));
+			this.RegisterEvent<OnCurrentGunChangedEvent>((e) => {
+				MAX_BULLET_COUNT = this.SendQuery(new MaxBulletCountQuery(e.GunName));
+				UpdateBulletCountInGunText(mGunInfo.BulletCountInGun.Value);
+			}).UnRegisterWhenGameObjectDestroyed(gameObject);
+
 			mPlayerModel.HP.RegisterOnValueChanged(UpdateHPText);
 			mStateSystem.KillCount.RegisterOnValueChanged(UpdateKillCountText);
 			mGunInfo.BulletCountInGun.RegisterOnValueChanged(UpdateBulletCountInGunText);
