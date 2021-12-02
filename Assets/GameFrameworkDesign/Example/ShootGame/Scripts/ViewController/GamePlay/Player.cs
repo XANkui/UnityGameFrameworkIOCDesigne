@@ -16,7 +16,7 @@ namespace GameFrameworkDesign.Example.ShootGame {
             mRigidbody2D = GetComponent<Rigidbody2D>();
             mGroundCheck = transform.Find("GroundCheck").GetComponent<Trigger2DCheck>();
             mGun = transform.Find("Gun").GetComponent<Gun>();
-            
+            this.GetModel<IPlayerModel>().HP.Value = 3;
         }
 
         private void Update()
