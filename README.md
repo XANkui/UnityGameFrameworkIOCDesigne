@@ -39,6 +39,8 @@
 
 •可以监听 Event
 
+•可以发送 Query
+
 #### 2、系统层：
 
 •可以获取 System
@@ -49,6 +51,7 @@
 
 •可以获取 Utility
 
+•可以发送 Query
 
 #### 3、数据层：
 
@@ -56,12 +59,13 @@
 
 •可以发送 Event
 
+•可以发送 Query
 
 #### 4、工具层：
 
 •啥都干不了，可以集成第三方库，或者封装 API。
 
-除了四个层级，还有一个核心概念就是 Command。
+除了四个层级，还有一个核心概念就是 Command, Query。
 
 #### 5、Command：
 
@@ -74,3 +78,16 @@
 •可以获取 Utility
 
 •可以发送 Command
+
+#### 6、Query：用于需要多行代码查询的数据获取
+
+•可以获取 System
+
+•可以获取 Model
+
+•可以发送 Event
+
+•可以获取 Utility
+
+•可以发送 Command
+
