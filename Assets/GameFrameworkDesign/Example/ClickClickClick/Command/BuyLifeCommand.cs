@@ -6,7 +6,7 @@ namespace GameFrameworkDesign.Example {
 
     public class BuyLifeCommand : AbstractCommand
     {
-        public override void OnExecute()
+        protected override void OnExecute()
         {
             var gameModel = this.GetModel<IGameModel>();
 

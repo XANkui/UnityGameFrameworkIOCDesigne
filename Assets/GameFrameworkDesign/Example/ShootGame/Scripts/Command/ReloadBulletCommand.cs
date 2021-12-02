@@ -9,8 +9,8 @@ namespace GameFrameworkDesign.Example.ShootGame {
     /// </summary>
 	public class ReloadBulletCommand : AbstractCommand
 	{
-		
-        public override void OnExecute()
+
+        protected override void OnExecute()
         {
             var currentGun = this.GetSystem<IGunSystem>().CurrentGun;
             var gunConfigItem = this.GetModel<IGunConfigModel>()

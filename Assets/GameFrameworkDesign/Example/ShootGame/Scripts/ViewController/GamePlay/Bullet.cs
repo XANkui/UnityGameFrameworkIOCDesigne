@@ -4,8 +4,8 @@ using UnityEngine;
 
 namespace GameFrameworkDesign.Example.ShootGame { 
 
-	public class Bullet : MonoBehaviour,IController
-	{
+	public class Bullet : BaseShootGameController
+    {
 		private Rigidbody2D mRigidbody2D;
 
 		private void Awake()
@@ -30,9 +30,6 @@ namespace GameFrameworkDesign.Example.ShootGame {
             }
         }
 
-        public IArchitecture GetArchitecture()
-        {
-            return ShootGame.Interface;
-        }
+        
     }
 }

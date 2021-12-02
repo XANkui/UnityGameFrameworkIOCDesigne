@@ -4,8 +4,8 @@ using UnityEngine;
 
 namespace GameFrameworkDesign.Example.ShootGame { 
 
-	public class Trigger2DCheck : MonoBehaviour
-	{
+	public class Trigger2DCheck : BaseShootGameController
+    {
 		public LayerMask TargetLayers;
 		public int EnterCount;
         public bool Triggered {

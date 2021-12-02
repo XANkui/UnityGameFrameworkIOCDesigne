@@ -4,8 +4,8 @@ using UnityEngine;
 
 namespace GameFrameworkDesign.Example.ShootGame { 
 
-	public class GunPickItem : MonoBehaviour,IController
-	{
+	public class GunPickItem : BaseShootGameController
+    {
 
         public string GunName;
         public int BulletCountInGun;
@@ -16,12 +16,10 @@ namespace GameFrameworkDesign.Example.ShootGame {
             if (collision.CompareTag("Player"))
             {
                 this.SendCommand(new PickGunCommand(GunName,BulletCountInGun,BulletCountOutGun) );
+                Destroy(this.gameObject);
             }
         }
 
-        public IArchitecture GetArchitecture()
-        {
-            return ShootGame.Interface;
-        }
+       
     }
 }

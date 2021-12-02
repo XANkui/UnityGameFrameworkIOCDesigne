@@ -4,8 +4,8 @@ using UnityEngine;
 
 namespace GameFrameworkDesign.Example.ShootGame { 
 
-	public class Player : MonoBehaviour,IController
-	{
+	public class Player : BaseShootGameController
+    {
         private Rigidbody2D mRigidbody2D;
         private bool mJumpPress = false;
         private Trigger2DCheck mGroundCheck;
@@ -35,7 +35,10 @@ namespace GameFrameworkDesign.Example.ShootGame {
             {
                 mGun.Reload();
             }
-
+            if (Input.GetKeyDown(KeyCode.S))
+            {
+                this.SendCommand<ShiftGunCommand>();
+            }
         }
 
         private void FixedUpdate()
@@ -61,9 +64,6 @@ namespace GameFrameworkDesign.Example.ShootGame {
             mJumpPress = false;
         }
 
-        public IArchitecture GetArchitecture()
-        {
-            return ShootGame.Interface;
-        }
+        
     }
 }

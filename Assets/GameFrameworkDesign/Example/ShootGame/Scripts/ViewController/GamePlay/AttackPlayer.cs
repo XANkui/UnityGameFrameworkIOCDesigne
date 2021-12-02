@@ -4,8 +4,8 @@ using UnityEngine;
 
 namespace GameFrameworkDesign.Example.ShootGame { 
 
-	public class AttackPlayer : MonoBehaviour,IController
-	{
+	public class AttackPlayer : BaseShootGameController
+    {
    
         private void OnCollisionEnter2D(Collision2D collision)
         {
@@ -16,9 +16,6 @@ namespace GameFrameworkDesign.Example.ShootGame {
             }
         }
 
-        public IArchitecture GetArchitecture()
-        {
-            return ShootGame.Interface;
-        }
+        
     }
 }

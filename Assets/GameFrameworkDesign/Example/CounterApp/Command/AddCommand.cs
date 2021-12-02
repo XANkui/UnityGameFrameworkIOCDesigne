@@ -7,9 +7,9 @@ namespace CounterApp {
 
 	public class AddCommand : AbstractCommand
 	{
- 
 
-        public override void OnExecute()
+
+        protected override void OnExecute()
         {
             this.GetModel<ICounterModel>().Count.Value++;
         }

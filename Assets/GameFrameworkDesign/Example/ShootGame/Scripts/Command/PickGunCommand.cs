@@ -17,7 +17,7 @@ namespace GameFrameworkDesign.Example.ShootGame {
             this.mBulletCountOutGun = bulletCountOutGun;
         }
 
-        public override void OnExecute()
+        protected override void OnExecute()
         {
             this.GetSystem<IGunSystem>().PickGun(mGunName, mBulletCountInGun, mBulletCountOutGun);
         }

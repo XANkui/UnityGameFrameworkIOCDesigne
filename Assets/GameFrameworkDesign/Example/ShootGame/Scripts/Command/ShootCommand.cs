@@ -7,7 +7,7 @@ namespace GameFrameworkDesign.Example.ShootGame {
 	public class ShootCommand : AbstractCommand
 	{
         public readonly static ShootCommand Single = new ShootCommand();
-        public override void OnExecute()
+        protected override void OnExecute()
         {
             IGunSystem curGunSystem = this.GetSystem<IGunSystem>();
             curGunSystem.CurrentGun.BulletCountInGun.Value--;

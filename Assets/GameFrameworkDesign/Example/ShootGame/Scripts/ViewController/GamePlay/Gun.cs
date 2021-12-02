@@ -5,8 +5,8 @@ using UnityEngine;
 
 namespace GameFrameworkDesign.Example.ShootGame { 
 
-	public class Gun : MonoBehaviour,IController
-	{
+	public class Gun : BaseShootGameController
+    {
         private Bullet mBullet;
         private IGunSystem mGunSystem;
         private GunInfo mGunInfo;
@@ -51,9 +51,6 @@ namespace GameFrameworkDesign.Example.ShootGame {
             mGunInfo = null;
         }
 
-        public IArchitecture GetArchitecture()
-        {
-            return ShootGame.Interface;
-        }
+        
     }
 }

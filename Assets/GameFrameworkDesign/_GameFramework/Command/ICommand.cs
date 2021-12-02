@@ -19,7 +19,7 @@ namespace GameFrameworkDesign {
             OnExecute();
         }
 
-        public abstract void OnExecute();
+        protected abstract void OnExecute();
 
         public IArchitecture GetArchitecture()
         {

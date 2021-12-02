@@ -6,7 +6,7 @@ namespace GameFrameworkDesign.Example {
 
 	public class ClickEnemyCommand : AbstractCommand
 	{
-        public override void OnExecute()
+        protected override void OnExecute()
         {
             IGameModel gameModel = this.GetModel<IGameModel>();
             gameModel.KillCount.Value++;

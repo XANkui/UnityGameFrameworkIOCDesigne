@@ -6,7 +6,7 @@ namespace GameFrameworkDesign.Example.ShootGame {
 
 	public class KillEnemyCommand : AbstractCommand
 	{
-        public override void OnExecute()
+        protected override void OnExecute()
         {
             this.GetSystem<IStateSystem>().KillCount.Value++;
 

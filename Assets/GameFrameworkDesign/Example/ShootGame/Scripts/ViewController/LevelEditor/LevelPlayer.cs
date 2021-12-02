@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace GameFrameworkDesign.Example.ShootGame { 
 
-	public class LevelPlayer : MonoBehaviour
+	public class LevelPlayer : BaseShootGameController
 	{
 		public TextAsset LevelFile;
 		// Start is called before the first frame update

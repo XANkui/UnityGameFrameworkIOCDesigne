@@ -1,18 +1,20 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 namespace GameFrameworkDesign.Example.ShootGame { 
 
-	public class NextLevel : BaseShootGameController
+	public class BulletPickItem : BaseShootGameController
     {
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            if (collision.gameObject.tag.Equals("Player"))
+            if (collision.CompareTag("Player"))
             {
-                SceneManager.LoadScene("GamePass");
+                this.SendCommand<AddBulletCommand>();
+                Destroy(this.gameObject);
             }
         }
+
+        
     }
 }

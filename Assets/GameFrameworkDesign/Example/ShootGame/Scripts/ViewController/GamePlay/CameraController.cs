@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace GameFrameworkDesign.Example.ShootGame { 
 
-	public class CameraController : MonoBehaviour
+	public class CameraController : BaseShootGameController
 	{
 		private Transform mPlayerTransform;
 

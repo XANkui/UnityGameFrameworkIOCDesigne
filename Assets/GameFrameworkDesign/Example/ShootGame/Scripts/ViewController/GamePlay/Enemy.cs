@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace GameFrameworkDesign.Example.ShootGame { 
 
-	public class Enemy : MonoBehaviour
+	public class Enemy : BaseShootGameController
 	{
 		private Trigger2DCheck mWallCheck;
 		private Trigger2DCheck mFallCheck;

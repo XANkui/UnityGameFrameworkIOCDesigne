@@ -6,7 +6,7 @@ namespace GameFrameworkDesign.Example {
 
 	public class StartGameCommand : AbstractCommand
 	{
-        public override void OnExecute()
+        protected override void OnExecute()
         {
             // 重置数据
             var gameModel = this.GetModel<IGameModel>();

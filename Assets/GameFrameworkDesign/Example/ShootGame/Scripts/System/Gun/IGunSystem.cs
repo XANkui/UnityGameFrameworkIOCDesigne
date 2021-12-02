@@ -9,12 +9,21 @@ namespace GameFrameworkDesign.Example.ShootGame {
 	{
         GunInfo CurrentGun { get; }
 
+        Queue<GunInfo> GunInfos { get; }
+
         void PickGun(string gunName,int bulletCountInGun, int bulletCountOutGun);
-        
+
+        void ShiftGun();
     }
 
     public class GunSystem : AbstractSystem,IGunSystem {
+
         private Queue<GunInfo> mGunInfos = new Queue<GunInfo>();
+
+        protected override void OnInit()
+        {
+
+        }
 
         public GunInfo CurrentGun { get; } = new GunInfo() { 
             BulletCountInGun=new BindableProperty<int>() { Value=3},
@@ -23,10 +32,7 @@ namespace GameFrameworkDesign.Example.ShootGame {
             GunState = new BindableProperty<GunState>() { Value=GunState.Idle}
         };
 
-        protected override void OnInit()
-        {
-            
-        }
+        public Queue<GunInfo> GunInfos { get => mGunInfos;  }
 
         public void PickGun(string gunName, int bulletCountInGun, int bulletCountOutGun)
         {
@@ -45,40 +51,59 @@ namespace GameFrameworkDesign.Example.ShootGame {
                 gunInfo.BulletCountOutGun.Value += bulletCountOutGun;
             }
             else {
-                // 复制当前枪械信息
-                var currentGunInfo = new GunInfo
-                {
-                    GunName = new BindableProperty<string>() { 
-                        Value = CurrentGun.GunName.Value
-                    },
-                    BulletCountInGun = new BindableProperty<int>() { 
-                        Value= CurrentGun.BulletCountInGun.Value
-                    },
-                    BulletCountOutGun = new BindableProperty<int>()
-                    {
-                        Value = CurrentGun.BulletCountOutGun.Value
-                    },
-                    GunState = new BindableProperty<GunState>()
-                    {
-                        Value = CurrentGun.GunState.Value
-                    }
-                };
-
-                // 缓存
-                mGunInfos.Enqueue(currentGunInfo);
-
-                // 新枪设置为当前枪
-                CurrentGun.GunName.Value = gunName;
-                CurrentGun.BulletCountInGun.Value = bulletCountInGun;
-                CurrentGun.BulletCountOutGun.Value = bulletCountOutGun;
-                CurrentGun.GunState.Value = GunState.Idle;
-
-                // 发送换枪事件
-                this.SendEvent(new OnCurrentGunChangedEvent()
-                {
-                    GunName = gunName
-                }) ;
+                EnqueueCurrentGun(gunName, bulletCountInGun, bulletCountOutGun);
             }
         }
+
+        public void ShiftGun()
+        {
+            if (mGunInfos.Count > 0)
+            {
+                var nextGunInfo = mGunInfos.Dequeue();
+
+                EnqueueCurrentGun(nextGunInfo.GunName.Value, nextGunInfo.BulletCountInGun.Value, nextGunInfo.BulletCountOutGun.Value);
+            }
+        }
+
+        void EnqueueCurrentGun(string nextGunName, int nextGunBulletCountInGun, int nextGunBulletCountOutGun) 
+        {
+            // 复制当前的枪械信息
+            var currentGunInfo = new GunInfo
+            {
+                GunName = new BindableProperty<string>()
+                {
+                    Value = CurrentGun.GunName.Value
+                },
+                BulletCountInGun = new BindableProperty<int>()
+                {
+                    Value = CurrentGun.BulletCountInGun.Value
+                },
+                BulletCountOutGun = new BindableProperty<int>()
+                {
+                    Value = CurrentGun.BulletCountOutGun.Value
+                },
+                GunState = new BindableProperty<GunState>()
+                {
+                    Value = CurrentGun.GunState.Value
+                }
+            };
+
+            // 缓存
+            mGunInfos.Enqueue(currentGunInfo);
+
+            // 新枪设置为当前枪
+            CurrentGun.GunName.Value = nextGunName;
+            CurrentGun.BulletCountInGun.Value = nextGunBulletCountInGun;
+            CurrentGun.BulletCountOutGun.Value = nextGunBulletCountOutGun;
+            CurrentGun.GunState.Value = GunState.Idle;
+
+            // 发送换枪事件
+            this.SendEvent(new OnCurrentGunChangedEvent()
+            {
+                GunName = nextGunName
+            });
+        }
+
+        
     }
 }

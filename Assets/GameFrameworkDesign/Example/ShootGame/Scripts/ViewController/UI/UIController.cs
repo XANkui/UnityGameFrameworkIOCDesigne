@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 namespace GameFrameworkDesign.Example.ShootGame { 
 
-	public class UIController : MonoBehaviour,IController
+	public class UIController : BaseShootGameController
 	{
 		private IPlayerModel mPlayerModel;
 		private IStateSystem mStateSystem;
@@ -96,9 +96,6 @@ namespace GameFrameworkDesign.Example.ShootGame {
 			mStateSystem.KillCount.UnRegisterOnValueChanged(UpdateKillCountText);
 		}
 
-        public IArchitecture GetArchitecture()
-        {
-			return ShootGame.Interface;
-        }
+        
     }
 }

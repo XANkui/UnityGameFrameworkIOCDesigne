@@ -14,7 +14,7 @@ namespace GameFrameworkDesign.Example.ShootGame {
             this.mHurtCOunt = hurtCOunt;
         }
 
-        public override void OnExecute()
+        protected override void OnExecute()
         {
             var playerModel = this.GetModel<IPlayerModel>();
 
