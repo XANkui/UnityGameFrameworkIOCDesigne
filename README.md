@@ -27,6 +27,8 @@
 
 •上层向下层通信用方法调用，IController 的交互逻辑为特使情况，只能用 Command。
 
+•Command 负责增删改 而 Query 负责查，加起来就是增删改查，Command 和 Query 可以帮助 Controller 分担一部分表现逻辑和交互逻辑，而通过 Query 我们很容易实现充血模型。
+
 ### 三、分层功能的补充说明
 
 #### 1、表现层：
